@@ -3,6 +3,8 @@ from random import randrange
 from tkinter import *
 from tkinter import messagebox
 
+eggs = []
+
 
 def createEgg():
     x = randrange(10, 740)
@@ -42,11 +44,23 @@ def checkCatch():
             eggs.remove(egg)
             c.delete(egg)
             score += egg_score
-            egg_speed += int(egg_speed * 0.95)
-            egg_interval += int(egg_interval * 0.95)
+            egg_speed = int(egg_speed * 0.95)
+            egg_interval = int(egg_interval * 0.95)
             c.itemconfigure(score_text, text='Score : ' + str(score))
 
     win.after(100, checkCatch)
+
+
+def moveLeft(event):
+    (x1, y1, x2, y2) = c.coords(catcher)
+    if x1 > 0:
+        c.move(catcher, -20, 0)
+
+
+def moveRight(event):
+    (x1, y1, x2, y2) = c.coords(catcher)
+    if x2 < canvas_width:
+        c.move(catcher, 20, 0)
 
 
 canvas_width = 800
@@ -86,7 +100,13 @@ lives_remaining = 3
 lives_text = c.create_text(canvas_width - 15, 18, anchor='ne', font=('Arial', 13, 'bold'), fill='white',
                            text='Lives Remaining : ' + str(lives_remaining))
 
-eggs = []
+c.bind('<Left>', moveLeft)
+c.bind('<Right>', moveRight)
+c.focus_set()
+
+win.after(1000, createEgg)
+win.after(1000, moveEggs)
+win.after(1000, checkCatch)
 
 win.title("Egg Catcher")
 win.mainloop()
