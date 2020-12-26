@@ -11,7 +11,8 @@ def createEgg():
     y = 40
     new_egg = c.create_oval(x, y, x + egg_width, y + egg_height, fill=next(color_cycle), width=0)
     eggs.append(new_egg)
-    win.after(egg_interval, createEgg)
+    if egg_interval!=-1:
+        win.after(egg_interval, createEgg)
 
 
 def eggDropped(egg):
@@ -38,7 +39,8 @@ def moveEggs():
         if eggY2 > canvas_height:
             eggDropped(egg)
 
-    win.after(egg_speed, moveEggs)
+    if egg_speed!=-1:
+        win.after(egg_speed, moveEggs)
 
 
 def checkCatch():
