@@ -38,5 +38,28 @@ score_text = c.create_text(15, 18, anchor='nw', font=('Arial', 14, 'bold'), fill
 lives_remaining = 3
 lives_text = c.create_text(canvas_width - 15, 18, anchor='ne', font=('Arial', 13, 'bold'), fill='white',
                            text='Lives Remaining : ' + str(lives_remaining))
+
+eggs = []
+
+
+def createEgg():
+    x = randrange(10, 740)
+    y = 40
+    new_egg = c.create_oval(x, y, x + egg_width, y + egg_height, fill=next(color_cycle), width=0)
+    eggs.append(new_egg)
+    win.after(egg_interval, createEgg)
+
+
+def moveEggs():
+    for egg in eggs:
+        (eggX1, eggY1, eggX2, eggY2) = c.coords(egg)
+        c.move(egg, 0, 10)
+
+        if eggY2 > catcher_height:
+            eggDropped(egg)
+
+    win.after(egg_speed, moveEggs)
+
+
 win.title("Egg Catcher")
 win.mainloop()
