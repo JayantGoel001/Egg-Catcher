@@ -1,3 +1,3 @@
 # Egg Catcher
 
-![](https://github.com/JayantGoel001/Egg-Catcher/blobs/master/egg-catcher.png)
+![](https://github.com/JayantGoel001/Egg-Catcher/blob/master/egg-catcher.png)
