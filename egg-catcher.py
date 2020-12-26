@@ -32,4 +32,10 @@ catcher_start_y2 = catcher_start_y1 + catcher_height
 catcher = c.create_arc(catcher_start_x1, catcher_start_y1, catcher_start_x2, catcher_start_y2, start=200, extent=140,
                        style='arc', outline=catcher_color, width=3)
 
+score = 0
+score_text = c.create_text(15, 18, anchor='nw', font=('Arial', 14, 'bold'), fill='white', text='Score :' + str(score))
+
+lives_remaining = 3
+lives_text = c.create_text(canvas_width - 15, 18, anchor='ne', font=('Arial', 13, 'bold'), fill='white',
+                           text='Lives Remaining : ' + str(lives_remaining))
 win.mainloop()
