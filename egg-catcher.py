@@ -2,6 +2,35 @@ from itertools import cycle
 from random import randrange
 from tkinter import *
 
+
+def createEgg():
+    x = randrange(10, 740)
+    y = 40
+    new_egg = c.create_oval(x, y, x + egg_width, y + egg_height, fill=next(color_cycle), width=0)
+    eggs.append(new_egg)
+    win.after(egg_interval, createEgg)
+
+
+def eggDropped(egg):
+    global lives_remaining
+    eggs.remove(egg)
+    lives_remaining -= 1
+    c.itemconfigure(lives_text, text='Lives : ' + str(lives_remaining))
+    if lives_remaining == 0:
+        messagebox.showinfo('Game Over!!', 'Final Score : ' + str(score))
+
+
+def moveEggs():
+    for egg in eggs:
+        (eggX1, eggY1, eggX2, eggY2) = c.coords(egg)
+        c.move(egg, 0, 10)
+
+        if eggY2 > catcher_height:
+            eggDropped(egg)
+
+    win.after(egg_speed, moveEggs)
+
+
 canvas_width = 800
 canvas_height = 400
 
@@ -40,26 +69,6 @@ lives_text = c.create_text(canvas_width - 15, 18, anchor='ne', font=('Arial', 13
                            text='Lives Remaining : ' + str(lives_remaining))
 
 eggs = []
-
-
-def createEgg():
-    x = randrange(10, 740)
-    y = 40
-    new_egg = c.create_oval(x, y, x + egg_width, y + egg_height, fill=next(color_cycle), width=0)
-    eggs.append(new_egg)
-    win.after(egg_interval, createEgg)
-
-
-def moveEggs():
-    for egg in eggs:
-        (eggX1, eggY1, eggX2, eggY2) = c.coords(egg)
-        c.move(egg, 0, 10)
-
-        if eggY2 > catcher_height:
-            eggDropped(egg)
-
-    win.after(egg_speed, moveEggs)
-
 
 win.title("Egg Catcher")
 win.mainloop()
