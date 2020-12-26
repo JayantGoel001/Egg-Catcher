@@ -15,16 +15,18 @@ def createEgg():
 
 
 def eggDropped(egg):
-    global lives_remaining
+    global lives_remaining, egg_speed, egg_interval
     eggs.remove(egg)
     c.delete(egg)
     lives_remaining -= 1
     c.itemconfigure(lives_text, text='Lives : ' + str(lives_remaining))
     if lives_remaining == 0:
-        messagebox.showinfo('Game Over!!', 'Final Score : ' + str(score))
-        eggs.clear()
         for egg in eggs:
             c.delete(egg)
+        eggs.clear()
+        egg_speed = -1
+        egg_interval = -1
+        messagebox.showinfo('Game Over!!', 'Final Score : ' + str(score))
         win.destroy()
 
 
@@ -109,8 +111,8 @@ c.bind('<Left>', moveLeft)
 c.bind('<Right>', moveRight)
 c.focus_set()
 
-win.after(1000, createEgg)
-win.after(1000, moveEggs)
+win.after(500, createEgg)
+win.after(500, moveEggs)
 win.after(1000, checkCatch)
 
 win.title("Egg Catcher")
