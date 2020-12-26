@@ -17,10 +17,12 @@ def createEgg():
 def eggDropped(egg):
     global lives_remaining
     eggs.remove(egg)
+    c.delete(egg)
     lives_remaining -= 1
     c.itemconfigure(lives_text, text='Lives : ' + str(lives_remaining))
     if lives_remaining == 0:
         messagebox.showinfo('Game Over!!', 'Final Score : ' + str(score))
+        win.destroy()
 
 
 def moveEggs():
@@ -28,7 +30,7 @@ def moveEggs():
         (eggX1, eggY1, eggX2, eggY2) = c.coords(egg)
         c.move(egg, 0, 10)
 
-        if eggY2 > catcher_height:
+        if eggY2 > canvas_height:
             eggDropped(egg)
 
     win.after(egg_speed, moveEggs)
@@ -74,7 +76,7 @@ c.create_rectangle(-5, canvas_height - 100, canvas_width + 5, canvas_height + 5,
 c.create_oval(-80, -80, 120, 120, fill='orange', width=0)
 c.pack()
 
-color_cycle = cycle(['light blue', 'light pink', 'light green', 'light red', 'blue', 'pink', 'green', 'red'])
+color_cycle = cycle(['light blue', 'light pink', 'light green', 'dark red', 'blue', 'pink', 'green', 'red'])
 egg_width = 45
 egg_height = 55
 egg_score = 10
@@ -98,7 +100,7 @@ score_text = c.create_text(15, 18, anchor='nw', font=('Arial', 14, 'bold'), fill
 
 lives_remaining = 3
 lives_text = c.create_text(canvas_width - 15, 18, anchor='ne', font=('Arial', 13, 'bold'), fill='white',
-                           text='Lives Remaining : ' + str(lives_remaining))
+                           text='Lives : ' + str(lives_remaining))
 
 c.bind('<Left>', moveLeft)
 c.bind('<Right>', moveRight)
