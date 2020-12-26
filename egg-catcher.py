@@ -38,4 +38,5 @@ score_text = c.create_text(15, 18, anchor='nw', font=('Arial', 14, 'bold'), fill
 lives_remaining = 3
 lives_text = c.create_text(canvas_width - 15, 18, anchor='ne', font=('Arial', 13, 'bold'), fill='white',
                            text='Lives Remaining : ' + str(lives_remaining))
+win.title("Egg Catcher")
 win.mainloop()
