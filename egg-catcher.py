@@ -31,6 +31,23 @@ def moveEggs():
     win.after(egg_speed, moveEggs)
 
 
+def checkCatch():
+    global score, egg_interval, egg_speed
+    (catcherX1, catcherY1, catcherX2, catcherY2) = c.coords(catcher)
+
+    for egg in eggs:
+        (eggX1, eggY1, eggX2, eggY2) = c.coords(egg)
+        if catcherX1 <= eggX1 and eggX2 <= catcherX2 and catcherY2 - eggY2 < 40:
+            eggs.remove(egg)
+            c.delete(egg)
+            score += egg_score
+            egg_speed += int(egg_speed * 0.95)
+            egg_interval += int(egg_interval * 0.95)
+            c.itemconfigure(score_text, text='Score : ' + str(score))
+
+    win.after(100, checkCatch)
+
+
 canvas_width = 800
 canvas_height = 400
 
