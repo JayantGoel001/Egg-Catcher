@@ -22,6 +22,9 @@ def eggDropped(egg):
     c.itemconfigure(lives_text, text='Lives : ' + str(lives_remaining))
     if lives_remaining == 0:
         messagebox.showinfo('Game Over!!', 'Final Score : ' + str(score))
+        eggs.clear()
+        for egg in eggs:
+            c.delete(egg)
         win.destroy()
 
 
@@ -42,7 +45,7 @@ def checkCatch():
 
     for egg in eggs:
         (eggX1, eggY1, eggX2, eggY2) = c.coords(egg)
-        if catcherX1 <= eggX1 and eggX2 <= catcherX2 and catcherY2 - eggY2 < 40:
+        if catcherX1 <= eggX1 and eggX2 <= catcherX2 and catcherY2 - eggY2 < 30:
             eggs.remove(egg)
             c.delete(egg)
             score += egg_score
